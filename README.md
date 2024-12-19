@@ -4,7 +4,7 @@
 Site de rencontre interactif
 
 ## Membres
-- Ellios TAGNE-CHIBY
+- Ellios TAGNE-CHIBY lea
 - Gianna QUENUM
 - Anta THIAM
 
