@@ -1,11 +1,22 @@
-const { Profile } = require('../models');
+const Profile = require('../models/profile');
 
-exports.getProfile = async (req, res) => {
-    try {
-        const profile = await Profile.findOne({ where: { userId: req.params.userId } });
-        if (!profile) return res.status(404).json({ message: 'Profile not found' });
-        res.status(200).json(profile);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
+// Création et mise à jour d'un profil
+const createOrUpdateProfile = async (req, res) => {
+  const { userId } = req.params;
+  const { name, bio } = req.body;
+  try {
+    let profile = await Profile.findOne({ where: { userId } });
+    if (profile) {
+      profile.name = name;
+      profile.bio = bio;
+      await profile.save();
+    } else {
+      profile = await Profile.create({ userId, name, bio });
     }
+    res.json(profile);
+  } catch (error) {
+    res.status(500).json({ message: 'Erreur de profil' });
+  }
 };
+
+module.exports = { createOrUpdateProfile };

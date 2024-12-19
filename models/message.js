@@ -1,8 +1,23 @@
-const { DataTypes } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const Message = sequelize.define('Message', {
-    content: { type: DataTypes.TEXT, allowNull: false }
-});
+class Message extends Model {}
+
+Message.init(
+  {
+    content: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    recipientId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+  },
+  {
+    sequelize,
+    modelName: 'Message',
+  }
+);
 
 module.exports = Message;

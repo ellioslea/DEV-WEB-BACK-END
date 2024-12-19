@@ -1,27 +1,24 @@
 const express = require('express');
+const dotenv = require('dotenv');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const profileRoutes = require('./routes/profileRoutes');
-const { sequelize } = require('./models');  // Importer l'instance Sequelize
+const sequelize = require('./config/database');
+
+dotenv.config();
 
 const app = express();
+
 app.use(express.json());
 
-// Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/profiles', profileRoutes);
+app.use('/auth', authRoutes);
+app.use('/users', userRoutes);
+app.use('/profiles', profileRoutes);
 
-// Synchroniser la base de données avant de démarrer le serveur
-sequelize.sync({ force: false })  // Force true pour réinitialiser la BDD (utiliser avec précaution)
-  .then(() => {
-    console.log('Database synced!');
-    
-    const PORT = process.env.PORT || 5000;
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.error('Error syncing database:', err);
-  });
+sequelize.authenticate()
+  .then(() => console.log('Database connected'))
+  .catch((err) => console.log('Database connection error:', err));
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});

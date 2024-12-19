@@ -1,10 +1,22 @@
-const { DataTypes } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const Profile = sequelize.define('Profile', {
-    bio: { type: DataTypes.TEXT },
-    age: { type: DataTypes.INTEGER },
-    location: { type: DataTypes.STRING }
-});
+class Profile extends Model {}
+
+Profile.init(
+  {
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    bio: {
+      type: DataTypes.TEXT,
+    },
+  },
+  {
+    sequelize,
+    modelName: 'Profile',
+  }
+);
 
 module.exports = Profile;

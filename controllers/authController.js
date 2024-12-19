@@ -1,26 +1,19 @@
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-const { User } = require('../models');
+const User = require('../models/user');
 
-exports.register = async (req, res) => {
-    try {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        const user = await User.create({ ...req.body, password: hashedPassword });
-        res.status(201).json({ message: 'User registered successfully', user });
-    } catch (err) {
-        res.status(500).json({ error: err.message });
+const authenticateUser = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const user = await User.findOne({ where: { email } });
+    if (!user || !(await user.validPassword(password))) {
+      return res.status(401).json({ message: 'Email ou mot de passe invalide' });
     }
+
+    const token = jwt.sign({ userId: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    res.json({ token });
+  } catch (error) {
+    res.status(500).json({ message: 'Erreur de serveur' });
+  }
 };
 
-exports.login = async (req, res) => {
-    try {
-        const user = await User.findOne({ where: { email: req.body.email } });
-        if (!user || !(await bcrypt.compare(req.body.password, user.password))) {
-            return res.status(401).json({ message: 'Invalid credentials' });
-        }
-        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.status(200).json({ message: 'Logged in successfully', token });
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-};
+module.exports = { authenticateUser };
