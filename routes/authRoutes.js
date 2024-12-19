@@ -1,12 +1,12 @@
+// authRoutes.js
+
 const express = require('express');
 const { login, register } = require('../controllers/authController');
 const { body, validationResult } = require('express-validator');
 
 const router = express.Router();
 
-/**
- * Middleware pour gérer les erreurs de validation
- */
+// Middleware pour gérer les erreurs de validation
 const validateRequest = (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -15,9 +15,7 @@ const validateRequest = (req, res, next) => {
     next();
 };
 
-/**
- * Route pour se connecter
- */
+// Route pour se connecter
 router.post(
     '/login',
     [
@@ -28,9 +26,7 @@ router.post(
     login
 );
 
-/**
- * Route pour s'enregistrer (optionnel si vous voulez ajouter cette fonctionnalité)
- */
+// Route pour s'enregistrer
 router.post(
     '/register',
     [

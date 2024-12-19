@@ -1,19 +1,26 @@
-const jwt = require('jsonwebtoken');
-const User = require('../models/user');
+// authController.js
 
-const authenticateUser = async (req, res) => {
-  const { email, password } = req.body;
-  try {
-    const user = await User.findOne({ where: { email } });
-    if (!user || !(await user.validPassword(password))) {
-      return res.status(401).json({ message: 'Email ou mot de passe invalide' });
-    }
+// Fonction de connexion (login)
+exports.login = (req, res) => {
+  const { username, password } = req.body;
 
-    const token = jwt.sign({ userId: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.json({ token });
-  } catch (error) {
-    res.status(500).json({ message: 'Erreur de serveur' });
+  // Logique de connexion, par exemple, vérifier si les informations sont valides
+  if (username === 'user' && password === 'password') {
+      return res.status(200).json({ message: 'Connexion réussie !' });
+  } else {
+      return res.status(401).json({ message: 'Nom d’utilisateur ou mot de passe incorrect.' });
   }
 };
 
-module.exports = { authenticateUser };
+// Fonction d'enregistrement (register)
+exports.register = (req, res) => {
+  const { username, password } = req.body;
+
+  // Logique d'enregistrement, par exemple, vérifier si le nom d'utilisateur existe déjà
+  if (username === 'existingUser') {
+      return res.status(400).json({ message: 'Nom d’utilisateur déjà utilisé.' });
+  } else {
+      // Enregistrer l'utilisateur (ici une simulation)
+      return res.status(201).json({ message: 'Enregistrement réussi !' });
+  }
+};
