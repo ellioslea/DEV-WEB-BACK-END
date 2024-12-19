@@ -1,10 +1,20 @@
-const { User } = require('../models');
+const User = require('../models/user');
 
-exports.getAllUsers = async (req, res) => {
+exports.getUsers = async (req, res) => {
     try {
         const users = await User.findAll();
-        res.status(200).json(users);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.json(users);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+exports.deleteUser = async (req, res) => {
+    const { id } = req.params;
+    try {
+        await User.destroy({ where: { id } });
+        res.status(204).send();
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
 };
