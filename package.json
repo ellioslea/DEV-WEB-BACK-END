@@ -4,10 +4,13 @@
   "description": "A backend project",
   "main": "server.js",
   "dependencies": {
+    "bcrypt": "^5.1.1",
+    "dotenv": "^10.0.0",
     "express": "^4.18.1",
-    "sequelize": "^6.10.0",
+    "express-validator": "^7.2.0",
+    "jsonwebtoken": "^9.0.2",
     "mysql2": "^2.3.3",
-    "dotenv": "^10.0.0"
+    "sequelize": "^6.10.0"
   },
   "scripts": {
     "start": "node server.js"
