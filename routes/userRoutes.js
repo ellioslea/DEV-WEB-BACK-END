@@ -23,7 +23,7 @@ const validateRequest = (req, res, next) => {
 router.get(
     '/',
     [authMiddleware, roleMiddleware('admin')],
-    getUsers
+    getUsers // Cette fonction doit être définie et exportée correctement dans le contrôleur
 );
 
 /**
@@ -33,7 +33,11 @@ router.get(
     '/:id',
     [
         authMiddleware,
-        param('id').isInt().withMessage('L’ID de l’utilisateur doit être un entier.'),
+        param('id')
+            .isInt()
+            .withMessage('L’ID de l’utilisateur doit être un entier.')
+            .custom((value) => value > 0)
+            .withMessage('L’ID de l’utilisateur doit être supérieur à zéro.'), // Vérification que l'ID est positif
     ],
     validateRequest,
     getUserById
@@ -47,7 +51,11 @@ router.delete(
     [
         authMiddleware,
         roleMiddleware('admin'),
-        param('id').isInt().withMessage('L’ID de l’utilisateur doit être un entier.'),
+        param('id')
+            .isInt()
+            .withMessage('L’ID de l’utilisateur doit être un entier.')
+            .custom((value) => value > 0)
+            .withMessage('L’ID de l’utilisateur doit être supérieur à zéro.'), // Vérification que l'ID est positif
     ],
     validateRequest,
     deleteUser
