@@ -20,7 +20,7 @@ app.use('/profiles', profileRoutes);
 
 // Connexion à la base de données avec Sequelize
 sequelize.authenticate()
-  .then(() => console.log('Database connected'))
+  .then(() => console.log('Database connected successfully'))
   .catch((err) => console.log('Database connection error:', err));
 
 // Lancer le serveur sur le port 3000

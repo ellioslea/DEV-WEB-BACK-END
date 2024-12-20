@@ -2,12 +2,12 @@ const { Sequelize } = require('sequelize');
 require('dotenv').config();
 
 const sequelize = new Sequelize(
-    process.env.DB_NAME, // Nom de la base de données
-    process.env.DB_USER, // Utilisateur de la base de données
-    process.env.DB_PASSWORD, // Mot de passe de l'utilisateur
+    'dev_db', // Nom de la base de données
+    'root', // Utilisateur de la base de données
+    'ANTA', // Mot de passe de l'utilisateur (vide pour MySQL local)
     {
-        host: process.env.DB_HOST, // Hôte de la base de données
-        dialect: 'mysql', // Type de base de données (MySQL, PostgreSQL, etc.)
+        host: 'localhost', // Hôte de la base de données
+        dialect: 'mysql', // Type de base de données (MySQL)
         logging: false, // Désactiver les logs SQL pour éviter l'encombrement
         pool: {
             max: 5, // Nombre maximum de connexions dans le pool
