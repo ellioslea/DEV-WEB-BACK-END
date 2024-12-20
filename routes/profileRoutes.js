@@ -1,5 +1,5 @@
 const express = require('express');
-const { getProfile, updateProfile } = require('../controllers/profileController');
+const { getProfile, createOrUpdateProfile } = require('../controllers/profileController'); // Changement ici
 const authMiddleware = require('../middlewares/authMiddleware');
 const { param, body, validationResult } = require('express-validator');
 
@@ -30,7 +30,7 @@ router.get(
 );
 
 /**
- * Mettre à jour un profil (authentification requise)
+ * Créer ou mettre à jour un profil (authentification requise)
  */
 router.put(
     '/:id',
@@ -45,7 +45,7 @@ router.put(
             .withMessage('La localisation doit être une chaîne de caractères.'),
     ],
     validateRequest,
-    updateProfile
+    createOrUpdateProfile // Utilisation de `createOrUpdateProfile` ici
 );
 
 module.exports = router;
