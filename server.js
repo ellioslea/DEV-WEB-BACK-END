@@ -1,26 +1,18 @@
 const express = require('express');
-require('dotenv').config(); // Charger les variables d'environnement
+const sequelize = require('./config/database');
+
 const app = express();
-
-// Middleware pour parser le JSON
-app.use(express.json());
-
-// Ajouter vos routes ici, par exemple :
-const authRoutes = require('./routes/authRoutes');
-const profileRoutes = require('./routes/profileRoutes');
-const userRoutes = require('./routes/userRoutes');
-
-// Utilisation des routes
-app.use('/api/auth', authRoutes);
-app.use('/api/profile', profileRoutes);
-app.use('/api/users', userRoutes);
-
-// Définir le port depuis .env ou utiliser un port par défaut
 const PORT = process.env.PORT || 3000;
 
-// Mettre le serveur en écoute
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
-
-module.exports = app; // Exporter l'application pour les tests
+// Tester la connexion à PostgreSQL
+sequelize.authenticate()
+    .then(() => {
+        console.log('Connexion à la base de données réussie !');
+        // Démarrer le serveur si la connexion réussit
+        app.listen(PORT, () => {
+            console.log(`Serveur en écoute sur le port ${PORT}`);
+        });
+    })
+    .catch((err) => {
+        console.error('Impossible de se connecter à la base de données :', err);
+    });
