@@ -1,22 +1,17 @@
-const { Model, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const User = require('./user');
 
-class Profile extends Model {}
+const Profile = sequelize.define('Profile', {
+    bio: { type: DataTypes.TEXT },
+    age: { type: DataTypes.INTEGER },
+    location: { type: DataTypes.STRING }
+}, {
+    timestamps: true,
+});
 
-Profile.init(
-  {
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    bio: {
-      type: DataTypes.TEXT,
-    },
-  },
-  {
-    sequelize,
-    modelName: 'Profile',
-  }
-);
+// Associer Profile à User
+Profile.belongsTo(User, { foreignKey: 'user_id' });
+User.hasOne(Profile, { foreignKey: 'user_id' });
 
 module.exports = Profile;
