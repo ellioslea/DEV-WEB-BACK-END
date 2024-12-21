@@ -9,3 +9,4 @@ const sequelize = new Sequelize('dating_app', 'quenumgianna', 'DEVBACK123', {
 
 // Exporter l'instance Sequelize pour être utilisée dans d'autres fichiers
 module.exports = sequelize;
+        

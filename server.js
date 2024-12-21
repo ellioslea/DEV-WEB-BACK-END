@@ -9,7 +9,7 @@ sequelize.authenticate()
     .then(() => {
         console.log('Connexion à la base de données réussie !');
         // Démarrer le serveur si la connexion réussit
-        app.listen(PORT, () => {
+        app.listen(PORT, "localhost",() => {
             console.log(`Serveur en écoute sur le port ${PORT}`);
         });
     })
