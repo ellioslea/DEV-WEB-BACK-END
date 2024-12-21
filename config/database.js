@@ -1,12 +1,19 @@
 const { Sequelize } = require('sequelize');
 
-// Connexion à PostgreSQL
-const sequelize = new Sequelize('dating_app', 'quenumgianna', 'DEVBACK123', {
-    host: 'localhost',      // Hôte local où PostgreSQL est installé
-    dialect: 'postgres',    // Type de base de données utilisé
-    logging: false,         // Désactiver les logs SQL dans la console (optionnel)
+// Crée une instance Sequelize connectée à PostgreSQL
+const sequelize = new Sequelize('dev_backend', 'quenumgianna', 'DEVBACK123', {
+    host: 'localhost',
+    dialect: 'postgres',
+    logging: false, // Désactive les logs SQL dans la console
 });
 
-// Exporter l'instance Sequelize pour être utilisée dans d'autres fichiers
+// Tester la connexion
+sequelize.authenticate()
+    .then(() => {
+        console.log('Connexion à la base de données réussie !');
+    })
+    .catch(err => {
+        console.error('Erreur de connexion à la base de données :', err);
+    });
+
 module.exports = sequelize;
-        

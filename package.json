@@ -1,5 +1,5 @@
 {
-  "name": "DEV-WEB-BACK-END",
+  "name": "dev-web-back-end",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -7,8 +7,9 @@
     "start": "node server.js"
   },
   "dependencies": {
-  "sequelize": "^6.31.1",
-  "pg": "^8.10.0",
-  "pg-hstore": "^2.3.4"
-}
+    "express": "^4.21.2",
+    "pg": "^8.13.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.5"
+  }
 }

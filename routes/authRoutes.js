@@ -1,6 +1,5 @@
-// authRoutes.js
 const express = require('express');
-const { login, register } = require('../controllers/authController'); // Vérifiez que c'est bien importé
+const { login, register } = require('../controllers/authController');
 const { body, validationResult } = require('express-validator');
 
 const router = express.Router();
