@@ -40,31 +40,31 @@ Authentification
 POST /api/auth/register : Inscription d'un nouvel utilisateur
 POST /api/auth/login : Connexion d'un utilisateur
 
-Utilisateurs
+# Utilisateurs
 
 GET /api/users : Récupérer des correspondances potentielles
 GET /api/users/:id : Récupérer le profil d'un utilisateur
 PUT /api/users/:id : Mettre à jour le profil d'un utilisateur
 DELETE /api/users/:id : Supprimer un compte
 
-Matching
+# Matching
 POST /api/matches : Créer une demande de correspondance
 PUT /api/matches/:id : Accepter/refuser une correspondance
 GET /api/matches : Obtenir les correspondances de l'utilisateur
 DELETE /api/matches/:id : Annuler une correspondance
 
-Messages
+# Messages
 POST /api/messages : Envoyer un message
 GET /api/messages : Obtenir l'historique des conversations
 PUT /api/messages/:id : Marquer un message comme lu
 DELETE /api/messages/:id : Supprimer un message
 
-Signalements
+# Signalements
 POST /api/reports : Signaler un utilisateur
 GET /api/reports : Obtenir les signalements (modérateurs uniquement)
 PUT /api/reports/:id : Mettre à jour le statut d'un signalement (modérateurs uniquement)
 
-Installation
+## Installation
 Cloner le dépôt
 Créer une base de données PostgreSQL
 Configurer un fichier .env avec vos identifiants de base de données
